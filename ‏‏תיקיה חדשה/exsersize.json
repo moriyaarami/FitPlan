@@ -1,0 +1,124 @@
+{
+    "exercises": [
+        {
+            "name": "Small Plank",
+            "description": "Lie on your stomach, support yourself on your elbows and toes, keeping your body straight and hold the position for as long as possible.",
+            "category": "Core",
+            "difficulty": "Intermediate",
+            "equipment": "None",
+            "location": "Floor"
+        },
+        {
+            "name": "Squat",
+            "description": "Stand upright with feet shoulder-width apart, lower your hips towards the floor while keeping your back straight.",
+            "category": "Legs",
+            "difficulty": "Intermediate",
+            "equipment": "None",
+            "location": "Free weights area"
+        },
+        {
+            "name": "Bench Press",
+            "description": "Lie on a flat bench, hold dumbbells in both hands, and push them upwards while maintaining a stable back.",
+            "category": "Chest",
+            "difficulty": "Hard",
+            "equipment": "Dumbbells, Flat bench",
+            "location": "Free weights area"
+        },
+        {
+            "name": "Deadlift",
+            "description": "Stand with feet shoulder-width apart, bend your knees, and lift the barbell from the ground until your body is upright.",
+            "category": "Legs, Lower Back",
+            "difficulty": "Hard",
+            "equipment": "Barbell",
+            "location": "Free weights area"
+        },
+        {
+            "name": "Burpees",
+            "description": "Perform a squat, jump into a plank position, and then jump back up to standing position.",
+            "category": "Full Body",
+            "difficulty": "Hard",
+            "equipment": "None",
+            "location": "Floor"
+        },
+        {
+            "name": "Sit-Ups",
+            "description": "Lie on your back with knees bent, raise your upper body towards your knees.",
+            "category": "Core",
+            "difficulty": "Easy",
+            "equipment": "None",
+            "location": "Floor"
+        },
+        {
+            "name": "Bicep Curls",
+            "description": "Stand with dumbbells in both hands, bend your elbows and lift the weights while keeping your back straight.",
+            "category": "Arms",
+            "difficulty": "Intermediate",
+            "equipment": "Dumbbells",
+            "location": "Free weights area"
+        },
+        {
+            "name": "Leg Press",
+            "description": "Sit on the leg press machine, push the platform upwards while keeping your knees at a 90-degree angle.",
+            "category": "Legs",
+            "difficulty": "Intermediate",
+            "equipment": "Leg press machine",
+            "location": "Leg press machine"
+        },
+        {
+            "name": "Cable Chest Fly",
+            "description": "Stand facing a cable machine, hold the handles in both hands and push the cables forward while keeping your back stable.",
+            "category": "Chest",
+            "difficulty": "Intermediate",
+            "equipment": "Cable machine",
+            "location": "Cable machine"
+        },
+        {
+            "name": "Cable Traps",
+            "description": "Stand facing a cable machine, hold the handles in both hands and pull the cables down while keeping your shoulders stable.",
+            "category": "Shoulders, Back",
+            "difficulty": "Intermediate",
+            "equipment": "Cable machine",
+            "location": "Cable machine"
+        },
+        {
+            "name": "Back Extension on Stability Ball",
+            "description": "Lie on a stability ball with your feet on the floor and your back straight, then raise your hips to align with your upper body and core.",
+            "category": "Back",
+            "difficulty": "Easy",
+            "equipment": "Stability ball",
+            "location": "Floor"
+        },
+        {
+            "name": "Triceps Dips",
+            "description": "Sit on a bench or machine, lower your body while keeping your back straight, then push yourself back up.",
+            "category": "Arms",
+            "difficulty": "Intermediate",
+            "equipment": "Bench",
+            "location": "Free weights area"
+        },
+        {
+            "name": "Overhead Press",
+            "description": "Hold dumbbells at shoulder height, press them upwards while keeping your back straight.",
+            "category": "Shoulders",
+            "difficulty": "Intermediate",
+            "equipment": "Dumbbells",
+            "location": "Free weights area"
+        },
+        {
+            "name": "Pull-Up",
+            "description": "Hang from a bar, pull your body upwards until your chin is above the bar.",
+            "category": "Upper Back",
+            "difficulty": "Hard",
+            "equipment": "Pull-up bar",
+            "location": "Gym area"
+        },
+        {
+            "name": "Plank with Rotation",
+            "description": "Hold a plank position on your elbows, rotate your upper body towards one hand while maintaining balance.",
+            "category": "Core",
+            "difficulty": "Intermediate",
+            "equipment": "None",
+            "location": "Floor"
+        }
+    ]
+}
