@@ -1,5 +1,4 @@
 import PageHeader from "../commponets/common/pageHeader";
-import Logo from "../commponets/logo";
 
 function About() {
     return <>

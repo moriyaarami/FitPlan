@@ -20,7 +20,6 @@ export function AuthProvider({ children }) {
     const refreshUser = () => setUser(usersService.getUser());
 
     const login = async (credentials) => {
-        console.log(credentials)
         const response = await usersService.loginUser(credentials);
         refreshUser();
 

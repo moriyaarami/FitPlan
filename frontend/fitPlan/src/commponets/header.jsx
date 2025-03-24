@@ -1,8 +1,6 @@
 
 import Navbar from "./navbar";
 
-
-
 function Header({ openModal }) {
 
     return <>

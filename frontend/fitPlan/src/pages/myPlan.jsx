@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useAuth } from "../context/auth.context";
 import usersService from "../services/userService";
 import PlanCard from "../commponets/planCard";
-import { useUserPlan } from "../hooks/useUserPlan";
 import { usePlan } from "../context/plan.context";
 
 function MyPlan() {

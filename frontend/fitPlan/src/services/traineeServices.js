@@ -9,6 +9,10 @@ export async function getAllTrainees() {
     return httpService.get('bizuser/trainee/myTrainees')
 }
 
+export async function getTraineeById(id) {
+    return httpService.get(`bizuser/trainee/${id}`)
+}
+
 export async function deleteTrainee(id) {
     return httpService.delete(`bizuser/trainee/${id}`)
 }
@@ -26,7 +30,8 @@ const TraineeServices = {
     getAllTrainees,
     deleteTrainee,
     addToTraineePlan,
-    removeFromTraineePlan
+    removeFromTraineePlan,
+    getTraineeById
 }
 
 export default TraineeServices;

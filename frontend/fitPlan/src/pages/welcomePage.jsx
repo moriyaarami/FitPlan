@@ -1,8 +1,8 @@
 import PageHeader from "../commponets/common/pageHeader";
-import Logo from "../commponets/logo";
+
 
 function WelcomePage({ closeModal, openModal }) {
-    console.log("hi")
+
     return <>
 
         <PageHeader titel={<>welcome to FitPlan</>} description="Are you registered or logged in? If not, now its the time." />
@@ -10,7 +10,7 @@ function WelcomePage({ closeModal, openModal }) {
             <button className="btn m-3 "
                 style={{ backgroundColor: "#9B59B6" }}
                 onClick={() => openModal('signup')}
-            >Sign In</button>
+            >Sign Up</button>
             <button className="btn m-3"
                 style={{ backgroundColor: "#9B59B6" }}
                 onClick={() => openModal('login')}

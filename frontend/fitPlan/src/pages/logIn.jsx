@@ -1,13 +1,10 @@
 import { useFormik } from "formik";
 import Input from "../commponets/common/input";
 import PageHeader from "../commponets/common/pageHeader";
-import Joi, { boolean } from 'joi';
+import Joi from "joi"
 import '../styles/form.css';
-import { useTheme } from "../context/themeContext";
-import usersService from "../services/userService";
 import { useState } from "react";
 import { useAuth } from "../context/auth.context";
-import { Navigate } from "react-router-dom";
 
 function LogIn({ closeModal }) {
     const { login, loginBiz } = useAuth();
@@ -47,7 +44,7 @@ function LogIn({ closeModal }) {
 
         },
         async onSubmit(values) {
-            console.log(values);
+
             if (values.isBusiness) {
                 const payload = { ...values };
 

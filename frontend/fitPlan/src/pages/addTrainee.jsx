@@ -5,7 +5,6 @@ import { useAuth } from "../context/auth.context";
 import PageHeader from "../commponets/common/pageHeader";
 import Input from "../commponets/common/input";
 import Joi from "joi";
-import BizUsersService from "../services/bizUserService";
 import TraineeServices from "../services/traineeServices";
 
 function AddTrainee({ closeModal }) {
@@ -29,7 +28,7 @@ function AddTrainee({ closeModal }) {
         validate(values) {
             const schema = Joi.object({
                 name: Joi.string().min(2).max(255).required(),
-                phone: Joi.string().min(9).max(10).required(),
+                phone: Joi.string().pattern(/^\d{9,10}$/).required().messages({ "string.pattern.base": "Phone number must contain 9 to 10 digits only." }),
                 password: Joi.string().min(6).max(255).required(),
                 traineeLevel: Joi.string().valid("Beginner", "Advanced", "Pro").required(),
                 image: Joi.object({
@@ -66,11 +65,21 @@ function AddTrainee({ closeModal }) {
                     }
                 }
                 await TraineeServices.addTrainee(payload);
-                setMessage("Trainee added successfully")
+                setMessage("Trainee added successfully, to see the trainee refresh the page");
+                setTimeout(() => {
+                    setMessage("")
+                }, 5000)
+                setTimeout(() => {
+                    closeModal();
+                }, 7000)
+
             } catch (err) {
                 if (err.response?.status === 400) {
                     console.log(err.response.data)
                     setServerError(err.response.data)
+                    setTimeout(() => {
+                        setServerError("");
+                    }, 5000)
                 }
             }
 

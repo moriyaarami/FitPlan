@@ -1,9 +1,8 @@
 import { useLocation } from "react-router-dom";
 import { useEx } from "../hooks/useEx";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import usersService from "../services/userService";
 import { useAuth } from "../context/auth.context";
-import ExCard from "../commponets/exCard";
 import { usePlan } from "../context/plan.context";
 import TraineeServices from "../services/traineeServices";
 
@@ -13,9 +12,9 @@ function MoreActions() {
 
     const location = useLocation();
     const { dayPlan, Plan, trainee, traineeId } = location.state;
-    console.log(traineeId)
 
-    const { plan, setPlan } = usePlan();
+    const { setPlan } = usePlan();
+
 
     const [RemoveMessage, setRemoveMessage] = useState("");
     const [message, setMessage] = useState("");
@@ -24,9 +23,10 @@ function MoreActions() {
     const [sets, setSets] = useState(1);
     const [reps, setReps] = useState(1);
 
+
     const addExercise = async () => {
         if (!trainee) {
-            console.log("in")
+
             try {
                 const data = {
                     dayName: dayPlan.day,
@@ -35,27 +35,36 @@ function MoreActions() {
                     reps: reps,
                 }
                 const updatePlan = await usersService.addExercise(user._id, data)
+
                 setPlan(updatePlan.data);
-                setMessage("Exercise added successfully , to see your update prograp, you must log out of the page and log in again.")
+
+                setMessage("Exercise added successfully , to see your update program, you must log out of the page and log in again.")
+                setTimeout(() => setMessage(""), 3000)
             } catch (err) {
                 setMessage("the exercise is in a training prograp.");
+                setTimeout(() => setMessage(""), 3000)
             }
         }
 
         if (trainee) {
+            const data = {
+                dayName: dayPlan.day,
+                exerciseId: exerciseId,
+                sets: sets,
+                reps: reps,
+            };
+
             try {
-                const data = {
-                    dayName: dayPlan.day,
-                    exerciseId: exerciseId,
-                    sets: sets,
-                    reps: reps,
-                }
-                const updatePlan = await TraineeServices.addToTraineePlan(traineeId, data)
-                setPlan(updatePlan.data)
-                setMessage("Exercise added successfully , to see the update prograp, you must log out of the page and log in again.")
-            } catch (err) {
-                setMessage("the exercise is in a training prograp.");
-            }
+                await TraineeServices.addToTraineePlan(traineeId, data);
+
+                setMessage("The exercise was added successfully, to see the update program, you must log out of the page and log in again.");
+
+                setTimeout(() => setMessage(""), 3000)
+            } catch (error) {
+                setMessage('The exercise alredy exists in the training program.');
+                setTimeout(() => setMessage(""), 3000)
+            };
+
         }
 
     }
@@ -68,31 +77,28 @@ function MoreActions() {
                     exerciseId,
                 }
 
-                console.log(data)
-                const updatePlan = await usersService.removeExercise(user._id, data);
-                console.log(updatePlan)
+                await usersService.removeExercise(user._id, data);
 
-                setRemoveMessage("Exercise removed successfully,to see your update prograp, you must log out of the page and log in again. ");
+                setRemoveMessage("Exercise removed successfully,to see your update program, you must log out of the page and log in again. ");
+                setTimeout(() => setRemoveMessage(""), 3000)
             } catch (err) {
                 setMessage("Error removing exercise.");
+                setTimeout(() => setRemoveMessage(""), 3000)
             }
         }
 
         if (trainee) {
+            const data = { dayName, exerciseId };
             try {
-                const data = {
-                    dayName,
-                    exerciseId,
-                }
+                await TraineeServices.removeFromTraineePlan(traineeId, data);
 
-                console.log(data)
-                const updatePlan = await TraineeServices.removeFromTraineePlan(traineeId, data)
-                console.log(updatePlan)
-
-                setRemoveMessage("Exercise removed successfully,to see the update prograp, you must log out of the page and log in again. ");
-            } catch (err) {
+                setRemoveMessage("Exercise removed successfully,to see the update program, you must log out of the page and log in again. ");
+                setTimeout(() => setRemoveMessage(""), 3000)
+            } catch (error) {
                 setMessage("Error removing exercise.");
+                setTimeout(() => setRemoveMessage(""), 3000)
             }
+
         }
 
     }

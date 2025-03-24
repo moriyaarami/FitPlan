@@ -1,4 +1,5 @@
-function Input({ label, error, ...rest }) {
+function Input({ label, error, value, ...rest }) {
+
 
     return <>
         <div className=" mb-3">
@@ -8,6 +9,7 @@ function Input({ label, error, ...rest }) {
 
             <input
                 {...rest}
+                value={value || ''}
                 className={["form-control", error && "is-invalid"].filter(Boolean).join(" ")}
                 id={rest.name}
             />

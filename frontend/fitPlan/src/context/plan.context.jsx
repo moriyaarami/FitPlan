@@ -1,6 +1,6 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import { useAuth } from "./auth.context";
-import usersService from "../services/userService";
+import { createContext, useContext, useState } from "react";
+import TraineeServices from "../services/traineeServices";
+
 
 const PlanContext = createContext();
 
@@ -10,10 +10,14 @@ export const PlanProvider = ({ children }) => {
 
 
     return (
-        <PlanContext.Provider value={{ plan, setPlan }}>
+        <PlanContext.Provider value={{
+            plan,
+            setPlan,
+        }}>
             {children}
         </PlanContext.Provider>
     )
 }
 
-export const usePlan = () => { return useContext(PlanContext) } 
+export const usePlan = () => { return useContext(PlanContext) };
+

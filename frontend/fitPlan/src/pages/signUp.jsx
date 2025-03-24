@@ -2,7 +2,7 @@
 import Joi from 'joi'
 import Input from "../commponets/common/input";
 import PageHeader from "../commponets/common/pageHeader";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useFormik } from "formik";
 import '../styles/form.css';
 import { useAuth } from '../context/auth.context'
@@ -85,7 +85,6 @@ function SignUp({ closeModal, openModal }) {
                     openModal('login')
                 } else {
                     const payload = { ...values };
-                    console.log(payload)
 
                     delete payload.traineeLevel;
                     delete payload.isBusiness;

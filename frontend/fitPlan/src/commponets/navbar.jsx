@@ -1,7 +1,5 @@
-
 import Logo from "./logo"
 import { Link, NavLink } from 'react-router-dom'
-import usersService from "../services/userService"
 import ThemeToggle from "./themeToggle"
 import { useTheme } from "../context/themeContext"
 import { useAuth } from "../context/auth.context"
@@ -55,9 +53,6 @@ function Navbar({ openModal }) {
                                     </NavLink>
                                 </li>)
                         )}
-
-
-
                     </ul>
 
                     <ul className="navbar-nav ms-auto ">
@@ -76,11 +71,6 @@ function Navbar({ openModal }) {
                                     <button className={["btn mx-2", Buttonstyle].filter(Boolean).join(" ")}
                                         onClick={() => openModal('logout')}>Log-Out</button>
                                 </li>
-                                {/*   <li className="nav-item ">
-
-                                    <img src="https://th.bing.com/th/id/OIP.0uaGrLEY_HxDEyklFhqGXgAAAA?rs=1&pid=ImgD…" alt="hiii" style={{ width: "3vw", height: "auto", borderRadius: "200px" }} onClick={() => openModal('profile')} />
-
-                                </li> */}
                             </>
                         }
 

@@ -55,12 +55,6 @@ export async function getUserById(id) {
 
 }
 
-/* export async function addTrainee(trainee) {
-    return httpService.post('bizuser/trainee/add', trainee);
-
-} */
-
-
 const BizUsersService = {
     createUser,
     loginUser,

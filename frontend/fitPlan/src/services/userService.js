@@ -55,14 +55,14 @@ export async function getUserById(id) {
 
 }
 
-/* export function updateUser(id, user) {
+export function updateUser(id, user) {
     return httpService.put(`/user/${id}`, user)
-} */
+}
 
-/* export function deleteUser(id) {
+export function deleteUser(id) {
     httpService.delete(`/user/${id}`).then(res => console.log(res));
 
-} */
+}
 
 export function addExercise(id, data) {
     return httpService.patch(`/user/addToMyPlan/${id}`, data)

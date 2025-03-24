@@ -1,15 +1,24 @@
 import { useLocation } from "react-router-dom"
 import { usePlan } from "../context/plan.context";
 import PlanCard from "../commponets/planCard";
-import { use } from "react";
+import { useEffect } from "react";
+import TraineeServices from "../services/traineeServices";
 
 function MoreInfo() {
 
+    const { plan, setPlan } = usePlan();
+
     const location = useLocation();
     const { traineeInfo } = location.state;
-    console.log(traineeInfo)
 
-    const { plan } = usePlan()
+    useEffect(() => {
+        const fetchTrainee = async () => {
+            const response = await TraineeServices.getTraineeById(traineeInfo._id);
+            setPlan(response.data[0].myPlan)
+        }
+
+        fetchTrainee()
+    }, [])
 
 
     return <>

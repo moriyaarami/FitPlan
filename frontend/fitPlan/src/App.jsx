@@ -13,15 +13,9 @@ import MyPlan from './pages/myPlan'
 
 import Modal from "react-modal"
 import React, { useState, useEffect } from "react";
-import ThemeToggle from './commponets/themeToggle'
 import { useTheme } from './context/themeContext'
-import httpService from './services/httpService'
-import usersService from './services/userService'
 import WelcomePage from './pages/welcomePage'
-import Profile from './pages/profile'
-
 import { useAuth } from './context/auth.context'
-import ProtectRouter from './commponets/common/protectRouter'
 import MoreActions from './pages/moreActions'
 import MyTrainess from './pages/myTrainees'
 import AddTrainee from './pages/addTrainee'
@@ -57,8 +51,6 @@ function App() {
       welcomeTimer = setTimeout(() => {
         openModal('welcomePage')
       }, 5000)
-    } else {
-      /* console.log(user) */
     }
 
     const handleModalOpen = () => {
@@ -88,7 +80,6 @@ function App() {
           <Route path='/my-plan' element={<MyPlan />} />
           <Route path='/more-actions' element={<MoreActions />} />
           <Route path='/my-trainees' element={<MyTrainess openModal={openModal} />} />
-          <Route path='/add-trainee' element={<AddTrainee />} />
           <Route path='/more-info' element={<MoreInfo />} />
         </Routes>
       </main>

@@ -4,7 +4,7 @@ import usersService from "../services/userService";
 import { useAuth } from "../context/auth.context";
 import { useUserInfo } from "../hooks/useUserInfo";
 
-function Profile({ closeModal, openModal }) {
+function Profile({ closeModal }) {
     const { userInfo, error, loading } = useUserInfo();
 
     if (loading) return <p>Loading...</p>;
