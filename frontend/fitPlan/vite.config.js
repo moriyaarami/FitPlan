@@ -6,10 +6,4 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [
     react()],
-  base: '/FitPlan/',
-  build: {
-    outDir: '../../gh-pages', // כדי לשים את הקבצים ישירות בענף
-    emptyOutDir: true,
-  }
-
 })
