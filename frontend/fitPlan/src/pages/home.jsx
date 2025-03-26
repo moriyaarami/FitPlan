@@ -10,6 +10,8 @@ function Home() {
 
     const exercises = useEx();
 
+    const [serverError, setServerError] = useState('');
+
     const [inputValue, setInputValue] = useState(localStorage.getItem("selectedCategory") || "");
     const [showExercise, setShowExercise] = useState([]);
 
@@ -32,7 +34,7 @@ function Home() {
             );
             setShowExercise(filteredExercises);
         } catch (err) {
-            console.log(err);
+            setServerError(err.message)
         }
     };
 
@@ -54,6 +56,7 @@ function Home() {
     return <>
         <div className="container">
             <PageHeader titel={<Logo />} />
+            {serverError && <div className="alert alert-danger">{serverError}</div>}
             <div className="input-group mb-3">
                 <select className="form-select" id="inputGroupSelect02" value={inputValue} onChange={handleSelectChange} >
                     <option value="" disabled>Search by category</option>
