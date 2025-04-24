@@ -26,7 +26,7 @@ app.use('/api/bizuser/trainee', bizTraineesRouter)
 app.use('/api/bizuser', bizUserRouter);
 app.use('/api/exercise', exerciseRouter);
 
-const uri = process.env.ENVIRONMENT === "production" ? process.env.CONNECTION_STRING_ATLAS : process.envLOCAL_CONNECTION_STRING;
+const uri = process.env.ENVIRONMENT === "production" ? process.env.CONNECTION_STRING_ATLAS : process.env.LOCAL_CONNECTION_STRING;
 
 
 async function connect() {
