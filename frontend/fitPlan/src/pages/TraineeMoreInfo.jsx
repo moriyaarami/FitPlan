@@ -8,29 +8,31 @@ function TraineeInfo() {
     const location = useLocation();
     const { traineeInfo } = location.state;
 
-    useEffect(() => {
-        const fetchTrainee = async () => {
-            const response = await TraineeServices.getTraineeById(traineeInfo._id);
-            setPlan(response.data[0].myPlan)
-        }
+    const traineeId = traineeInfo._id;
 
-        fetchTrainee()
-    }, [])
+    const { plan, dispatch } = usePlan();
 
 
-    return <>
-        <div className="container text-center p-4">
-            <h3 className="p-2">Program Plan</h3>
 
-            <div className="d-flex flex-wrap justify-content-center gap-4">
-                {
-                    plan.map((dayPlan, index) => {
-                        return <PlanCard key={index} dayPlan={dayPlan} trainee={true} traineeId={traineeInfo._id} />
-                    })
-                }
+    useEffect(() => { dispatch({ type: ACTION.SET_PLAN, payload: traineeInfo.myPlan }) }, [location])
+
+
+
+
+    return (
+        <>
+            <div className="text-center container p-4">
+                <h3 className="p-2 ">Program Plan</h3>
+                <div className="d-flex flex-wrap justify-content-center gap-4">
+                    {plan.map((day, index) => {
+                        return <PlanCard key={index} info={day} traineeId={traineeId} trainee={true}></PlanCard>
+
+                    })}
+                </div>
             </div>
-        </div>
-    </>
+        </>
+    )
+
 }
 
 export default TraineeInfo;

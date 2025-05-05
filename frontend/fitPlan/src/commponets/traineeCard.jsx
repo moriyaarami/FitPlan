@@ -6,7 +6,6 @@ import { useTrainees } from "../context/trainee.context";
 function TraineeCard({ traineeInfo, onUpdate }) {
 
 
-
     const { deleteTrainee } = useTrainees();
 
     const [isEditing, setIsEditing] = useState(false);

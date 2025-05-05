@@ -101,7 +101,7 @@ function MoreActions() {
 
     }
 
-    return (
+    return <>
         <div className="container text-center">
             <h3 className="m-3">Manage Exercises for {dayPlan.day}</h3>
             {RemoveMessage && <div className="alert alert-info">{RemoveMessage}</div>}
