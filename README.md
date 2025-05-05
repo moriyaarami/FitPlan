@@ -24,6 +24,19 @@ npm install
 npm run dev 
 ```
 
+## Environment Variables
+
+This project uses a `.env` file to define environment variables. Below are the required variables:
+
+- `JWT_KEY` - A secret key used to sign and verify JSON Web Tokens (JWT).
+- `LOCAL_CONNECTION_STRING` - Connection string for a local MongoDB database.
+- `CONNECTION_STRING_ATLAS` - Connection string for a MongoDB database hosted on Atlas.
+- `ENVIRONMENT` - Specifies the environment (e.g., `production` or `development`).
+
+### How to set up the .env file
+1. Create a file named `.env` in the root of your project.
+2. Copy the following variables and replace the values with your own:
+
 
     
 # key features
