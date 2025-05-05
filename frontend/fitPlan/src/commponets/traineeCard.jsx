@@ -1,10 +1,11 @@
 import { NavLink } from "react-router-dom";
-import TraineeServices from "../services/traineeServices";
-import { useEffect, useState } from "react";
-import { usePlan } from "../context/plan.context";
+import { useState } from "react";
+
 import { useTrainees } from "../context/trainee.context";
 
 function TraineeCard({ traineeInfo, onUpdate }) {
+
+
 
     const { deleteTrainee } = useTrainees();
 
@@ -20,7 +21,7 @@ function TraineeCard({ traineeInfo, onUpdate }) {
             setIsEditing(false)
             setMessage("Trainee updated successfully!");
         } catch (err) {
-            console.log(err)
+
             console.error("Failed to update trainee:", err);
             setMessage("Failed to update trainee. Please try again.");
             setFormData(traineeInfo)

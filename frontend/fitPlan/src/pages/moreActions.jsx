@@ -3,149 +3,153 @@ import ExerciseCard from "../commponets/exerciseCard";
 import { useEx } from "../hooks/useEx";
 import { useEffect, useState } from "react";
 import TraineeServices from "../services/traineeServices";
-import { useAuth } from "../context/auth.context";
-import BizUsersService from "../services/bizUserService";
-import { ACTION, usePlan } from "../context/plan.context";
-import usersService from "../services/userService";
 
-
-function MoreAction() {
-    const { user } = useAuth()
+function MoreActions() {
     const EXERCISES = useEx();
-    const { plan, dispatch } = usePlan();
-    console.log(user)
+    const { user } = useAuth()
 
     const location = useLocation();
-    const { exerciseDetails, day, traineeId, trainee } = location.state;
-    console.log(trainee)
+    const { dayPlan, Plan, trainee, traineeId } = location.state;
 
-    const [message, setMessage] = useState('')
-    const [deleteMessage, setDeleteMessage] = useState('')
+    const { setPlan } = usePlan();
+
+
+    const [RemoveMessage, setRemoveMessage] = useState("");
+    const [message, setMessage] = useState("");
+
     const [exerciseId, setExerciseId] = useState("");
     const [sets, setSets] = useState(1);
     const [reps, setReps] = useState(1);
-    const [specificDay, setSpecificDay] = useState(null);
 
-    const isTruthy = Object.keys(plan).length > 0; // מחזיר false כי אין מפתחות
-    const isFullTruthy = Object.keys(plan).length > 0; // מחזיר true כי יש מפתחות
 
-    console.log(isTruthy);       // false
-    console.log(isFullTruthy);
+    const addExercise = async () => {
+        if (!trainee) {
 
-    useEffect(() => {
+            try {
+                const data = {
+                    dayName: dayPlan.day,
+                    exerciseId: exerciseId,
+                    sets: sets,
+                    reps: reps,
+                }
+                const updatePlan = await usersService.addExercise(user._id, data)
 
-        const foundDay = plan.find((d) => { return d.day === day })
-        setSpecificDay(foundDay)
+                setPlan(updatePlan.data);
 
-    }, [plan, day, location])
+                setMessage("Exercise added successfully , to see your update program, you must log out of the page and log in again.")
+                setTimeout(() => setMessage(""), 3000)
+            } catch (err) {
+                setMessage("the exercise is in a training prograp.");
+                setTimeout(() => setMessage(""), 3000)
+            }
+        }
 
-    if (specificDay?.length == 0) {
-        console.log("in")
-        return;
-    }
-
-    const handleAddToPlan = async () => {
         if (trainee) {
             const data = {
-                dayName: day,
+                dayName: dayPlan.day,
                 exerciseId: exerciseId,
                 sets: sets,
                 reps: reps,
             };
 
             try {
-                const response = await TraineeServices.addToTraineePlan(traineeId, data)
-                setMessage('The exercises added successfully')
-                setTimeout(() => { setMessage('') }, 3000)
-                dispatch({ type: ACTION.SET_PLAN, payload: response.data })
+                await TraineeServices.addToTraineePlan(traineeId, data);
 
-            } catch (err) {
-                setMessage('The exercise already exists')
-                setTimeout(() => { setMessage('') }, 3000)
-            }
+                setMessage("The exercise was added successfully, to see the update program, you must log out of the page and log in again.");
 
-        }
-
-        if (!trainee) {
-            const data = {
-                dayName: day,
-                exerciseId: exerciseId,
-                sets: sets,
-                reps: reps,
+                setTimeout(() => setMessage(""), 3000)
+            } catch (error) {
+                setMessage('The exercise alredy exists in the training program.');
+                setTimeout(() => setMessage(""), 3000)
             };
 
-            try {
-                const response = await usersService.addExercise(user._id, data)
-                setMessage('The exercises added successfully')
-                setTimeout(() => { setMessage('') }, 3000)
-                dispatch({ type: ACTION.SET_PLAN, payload: response.data })
-
-            } catch (err) {
-                setMessage('The exercise already exists')
-                setTimeout(() => { setMessage('') }, 3000)
-            }
         }
+
     }
 
-    const handleDeleteFromPlam = async (info) => {
-
-        if (trainee) {
-
-            const data = {
-                dayName: day,
-                exerciseId: info.exerciseId,
-            };
-
-
-            try {
-                const response = await TraineeServices.removeFromTraineePlan(traineeId, data);
-
-                setDeleteMessage('The exercises deleted successfully')
-                setTimeout(() => { setDeleteMessage('') }, 3000)
-
-                dispatch({ type: ACTION.SET_PLAN, payload: response.data })
-            } catch (err) {
-                console.log(err)
-            }
-        }
-
+    const removeExercise = async (dayName, exerciseId) => {
         if (!trainee) {
-            const data = {
-                dayName: day,
-                exerciseId: info.exerciseId,
-            };
-
             try {
-                const response = await usersService.removeExercise(user._id, data)
-                setDeleteMessage('The exercises deleted successfully')
-                setTimeout(() => { setDeleteMessage('') }, 3000)
-
-                dispatch({ type: ACTION.SET_PLAN, payload: response.data })
-            } catch (err) {
-                console.log(err)
-            }
-        }
-    }
-
-
-
-    return <>
-        <div className="text-center container p-4">
-            <h1 className="p-4">Manage Plan</h1>
-            {deleteMessage && <div className="alert alert-secondary">{deleteMessage}</div>}
-            <div className="d-flex flex-wrap justify-content-center gap-4">
-                {console.log(Object.keys(plan).length)}
-                {Object.keys(plan).length > 0 && (
-                    specificDay && specificDay["exercises"].map((ex, index) => {
-                        return <ExerciseCard key={index} exInfo={ex} deleteFromPlan={handleDeleteFromPlam}></ExerciseCard>
-                    }))
+                const data = {
+                    dayName,
+                    exerciseId,
                 }
 
-            </div>
+                await usersService.removeExercise(user._id, data);
+
+                setRemoveMessage("Exercise removed successfully,to see your update program, you must log out of the page and log in again. ");
+                setTimeout(() => setRemoveMessage(""), 3000)
+            } catch (err) {
+                setMessage("Error removing exercise.");
+                setTimeout(() => setRemoveMessage(""), 3000)
+            }
+        }
+
+        if (trainee) {
+            const data = { dayName, exerciseId };
+            try {
+                await TraineeServices.removeFromTraineePlan(traineeId, data);
+
+                setRemoveMessage("Exercise removed successfully,to see the update program, you must log out of the page and log in again. ");
+                setTimeout(() => setRemoveMessage(""), 3000)
+            } catch (error) {
+                setMessage("Error removing exercise.");
+                setTimeout(() => setRemoveMessage(""), 3000)
+            }
+
+        }
+
+    }
+
+    return (
+        <div className="container text-center">
+            <h3 className="m-3">Manage Exercises for {dayPlan.day}</h3>
+            {RemoveMessage && <div className="alert alert-info">{RemoveMessage}</div>}
+
+            {
+                dayPlan.exercises.length > 0 ? (
+                    <div className="d-flex flex-wrap justify-content-center gap-4">
+
+                        {dayPlan.exercises.map((exercise, index) => {
+                            const fullExerciseDetails = Plan.find((ex) => ex._id === exercise.exerciseId)
+
+                            if (!fullExerciseDetails) return null;
+
+                            return <div className="card" key={index} style={{ width: "18rem" }}>
+                                <div className="card-body">
+                                    <h5 className="card-title">{fullExerciseDetails.name}</h5>
+                                    <p className="card-text">Description: {fullExerciseDetails.description}</p>
+                                    <p className="card-text">Category: {fullExerciseDetails.category}</p>
+                                    <p className="card-text">Equipment: {fullExerciseDetails.equipment}</p>
+                                    <p className="card-text">Location: {fullExerciseDetails.location}</p>
+                                    <div className="d-flex  justify-content-around">
+                                        <p className="card-text">Sets: {exercise.sets}</p>
+                                        <p className="card-text">Reps: {exercise.reps}</p>
+                                    </div>
+
+
+                                </div>
+                                <button
+                                    className="btn btn-danger m-4"
+                                    onClick={() => removeExercise(dayPlan.day, exercise.exerciseId)}
+                                >
+                                    Remove Exercise
+                                </button>
+                            </div>
+                        })}
+                    </div>
+                ) : (
+                    <h5>No exercises added yet. Let's add one!</h5>
+                )
+            }
+
+
+
+
 
             <h3 className="m-5">Add exercise</h3>
             <form >
-                {message && <div className="alert alert-secondary">{message}</div>}
+                {/* {message && <div className="alert alert-secondary">{message}</div>} */}
                 <div className="input-group m-3 " >
                     <select
                         onChange={(e) => setExerciseId(e.target.value)}
