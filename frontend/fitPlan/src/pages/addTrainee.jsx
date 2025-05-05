@@ -6,12 +6,15 @@ import PageHeader from "../commponets/common/pageHeader";
 import Input from "../commponets/common/input";
 import Joi from "joi";
 import TraineeServices from "../services/traineeServices";
+import { useTrainees } from "../context/trainee.context";
 
-function AddTrainee({ closeModal }) {
+function AddTrainee() {
 
     const [serverError, setServerError] = useState("");
     const [message, setMessage] = useState("")
     const { user } = useAuth();
+
+    const { addTrainee } = useTrainees();
 
     const form = useFormik({
         validateOnMount: true,
@@ -52,38 +55,9 @@ function AddTrainee({ closeModal }) {
 
             return errors;
         },
-        async onSubmit(values) {
-            try {
-                const payload = { ...values };
+        async onSubmit(values, { resetForm }) {
 
-                if (payload.image) {
-                    if (!payload.image.url) {
-                        delete payload.image.url;
-                    }
-                    if (!payload.image.alt) {
-                        delete payload.image.alt;
-                    }
-                }
-                await TraineeServices.addTrainee(payload);
-                setMessage("Trainee added successfully, to see the trainee refresh the page");
-                setTimeout(() => {
-                    setMessage("")
-                }, 5000)
-                setTimeout(() => {
-                    closeModal();
-                }, 7000)
-
-            } catch (err) {
-                if (err.response?.status === 400) {
-                    console.log(err.response.data)
-                    setServerError(err.response.data)
-                    setTimeout(() => {
-                        setServerError("");
-                    }, 5000)
-                }
-            }
-
-
+            addTrainee(values, resetForm, setMessage, setServerError)
 
         }
     });
@@ -157,7 +131,7 @@ function AddTrainee({ closeModal }) {
                 </select>
 
             </div>
-            <button id='sendButton' type="submit" disabled={!form.isValid} className="btn btn-dark">Sign Up</button>
+            <button id='sendButton' type="submit" disabled={!form.isValid} className="btn btn-dark" >Add Trainee</button>
         </form>
     </div>
 }

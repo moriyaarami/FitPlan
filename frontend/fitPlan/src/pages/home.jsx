@@ -9,19 +9,22 @@ import cardService from "../services/exercise";
 function Home() {
 
     const exercises = useEx();
+    console.log(exercises)
 
     const [serverError, setServerError] = useState('');
-
     const [inputValue, setInputValue] = useState(localStorage.getItem("selectedCategory") || "");
     const [showExercise, setShowExercise] = useState([]);
 
-    useEffect(() => {
-        if (inputValue) {
 
+    useEffect(() => {
+
+        if (inputValue) {
             handleCategorySearch(inputValue);
         } else {
             setShowExercise(exercises)
         }
+
+
 
     }, [exercises])
 
@@ -68,6 +71,7 @@ function Home() {
                 </select>
             </div>
             <div className=" d-flex flex-wrap justify-content-center  gap-4 p-2" >
+
 
                 {!showExercise.length ? (
                     <p>Loading...</p>

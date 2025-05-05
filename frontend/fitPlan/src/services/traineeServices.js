@@ -16,7 +16,9 @@ export async function getTraineeById(id) {
 export async function deleteTrainee(id) {
     return httpService.delete(`bizuser/trainee/${id}`)
 }
-
+export async function editTrainee(id, updateData) {
+    return httpService.put(`bizuser/trainee/${id}`, updateData)
+}
 export async function addToTraineePlan(id, data) {
     return httpService.patch(`bizuser/trainee/addToTraineePlan/${id}`, data)
 }
@@ -25,13 +27,15 @@ export async function removeFromTraineePlan(id, data) {
     return httpService.patch(`bizuser/trainee/removeFromTraineePlan/${id}`, data);
 }
 
+
 const TraineeServices = {
     addTrainee,
     getAllTrainees,
     deleteTrainee,
     addToTraineePlan,
     removeFromTraineePlan,
-    getTraineeById
+    getTraineeById,
+    editTrainee
 }
 
 export default TraineeServices;

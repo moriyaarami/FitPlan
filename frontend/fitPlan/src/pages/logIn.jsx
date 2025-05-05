@@ -57,6 +57,7 @@ function LogIn({ closeModal }) {
                 } catch (err) {
                     if (err.response?.status >= 400) {
                         setServerError(err.response.data);
+                        setTimeout(() => setServerError(""), 3000)
                     }
                 }
             } else {
@@ -64,12 +65,12 @@ function LogIn({ closeModal }) {
 
                 delete payload.isBusiness
                 try {
-
                     await login(payload);
                     closeModal();
                 } catch (err) {
                     if (err.response?.status >= 400) {
                         setServerError(err.response.data);
+                        setTimeout(() => setServerError(""), 3000)
                     }
                 }
             }
