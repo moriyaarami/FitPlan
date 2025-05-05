@@ -19,6 +19,7 @@ import Modal from "react-modal";
 import { ThemeProvider } from './context/themeContext.jsx';
 import { AuthProvider } from './context/auth.context.jsx';
 import { PlanProvider } from './context/plan.context.jsx';
+import { TraineesProvider } from './context/trainee.context.jsx';
 
 Modal.setAppElement('#root');
 
@@ -27,11 +28,15 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <ThemeProvider>
       <BrowserRouter >
-        <PlanProvider>
-          <AuthProvider>
-            <App />
-          </AuthProvider>
-        </PlanProvider>
+        <AuthProvider>
+          <TraineesProvider>
+            <PlanProvider>
+
+              <App />
+
+            </PlanProvider>
+          </TraineesProvider>
+        </AuthProvider>
       </BrowserRouter >
     </ThemeProvider>
   </StrictMode>

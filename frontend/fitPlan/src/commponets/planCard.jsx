@@ -1,46 +1,88 @@
 import { NavLink } from "react-router-dom";
 import { useEx } from "../hooks/useEx";
-import { usePlan } from "../context/plan.context";
+import { ACTION, usePlan } from "../context/plan.context";
+import MoreAction from "../pages/moreActions";
+import { useEffect, useState } from "react";
+import TraineeServices from "../services/traineeServices";
+import usersService from "../services/userService";
+import { useAuth } from "../context/auth.context";
 
-function PlanCard({ dayPlan, trainee, traineeId }) {
+function PlanCard({ info, traineeId, trainee }) {
+    console.log(trainee)
+    const day = info.day;
 
-    const { plan } = usePlan();
+    const exercisesFromServer = useEx();
+    const { plan, dispatch } = usePlan();
+    const { user } = useAuth()
 
-    const Day = plan.find((p) => p.day === dayPlan.day)
+    const [exerciseDetails, setExerciseDetails] = useState([]);
 
-    const exercises = Day.exercises;
 
-    const Exercises = useEx();
 
-    const Plan = Exercises.filter((exercise) => exercises.some((ex) => ex.exerciseId === exercise._id));
+    const fetchPlan = async () => {
+        if (trainee) {
+            try {
+                const response = await TraineeServices.getTraineeById(traineeId);
+                dispatch({ type: ACTION.SET_PLAN, payload: response.data[0].myPlan })
+            } catch (err) {
+                console.log(err)
+            }
+        }
+        if (!trainee) {
+            try {
+                const response = await usersService.getUserById(user._id)
+                dispatch({ type: ACTION.SET_PLAN, payload: response.myPlan })
+            } catch (err) {
+                console.log(err)
+            }
+        }
+
+    }
+    useEffect(() => { fetchPlan() }, [])
+
+
+    useEffect(() => {
+        const updatedExerciseDetails = (info.exercises).map((ex) => {
+            const exerciseFromServer = exercisesFromServer.find((exercise) => exercise._id === ex.exerciseId);
+
+            if (exerciseFromServer) {
+                return {
+                    ...exerciseFromServer,
+                    sets: ex.sets,
+                    reps: ex.reps,
+                }
+            }
+            return null;
+        }).filter((ex) => ex !== null);
+
+        setExerciseDetails(updatedExerciseDetails)
+    }, [info.exercises, exercisesFromServer])
+
+
+
 
 
     return <>
         <div className="card" style={{ width: "18rem" }}>
             <div className="card-body">
-                <h5 className="card-titel">{dayPlan.day}</h5>
-                <h6 className="card-subtitle mb-2 text-muted">Your workout for this day</h6>
-                <div className="card-text">
-                    {(exercises === undefined || exercises.length === 0) ? (
-                        <p>No exercises added yet.</p>
-                    ) : (
-                        <ul>
-                            {Plan.map((ex, index) => {
-                                return <li key={index} > {ex.name}</li>
-                            })}
-                        </ul>
-                    )}
+                <div className="card-titel">
+                    {info.day}
                 </div>
-
+                <div className="card-subtitle mb-2 text-muted">Your workout for this day</div>
+                <div className="card-text">
+                    {
+                        (exerciseDetails === undefined || exerciseDetails.length === 0) ? (<p>No exercises added yet.</p>) :
+                            exerciseDetails.map((ex, index) => {
+                                return <li key={index}>{ex.name}</li>
+                            })
+                    }
+                </div>
             </div>
+            <NavLink to="/more-actions" state={{ exerciseDetails, day, traineeId, trainee }} className="btn btn-dark mt-3" >Manage Exercises</NavLink>
 
-            <NavLink
-                to="/more-actions"
-                state={{ dayPlan, Day, Plan, trainee, traineeId }}
-                className="btn btn-dark mt-3"
-            >
-                Manage Exercises
-            </NavLink>
+
+
+
         </div >
     </>
 

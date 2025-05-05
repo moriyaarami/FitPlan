@@ -2,11 +2,11 @@ import { useEffect } from "react";
 import { useAuth } from "../context/auth.context";
 import usersService from "../services/userService";
 import PlanCard from "../commponets/planCard";
-import { usePlan } from "../context/plan.context";
+import { ACTION, usePlan } from "../context/plan.context";
 
 function MyPlan() {
 
-    const { plan, setPlan } = usePlan();
+    const { plan, dispatch } = usePlan();
     const { user } = useAuth();
 
     useEffect(() => {
@@ -14,7 +14,7 @@ function MyPlan() {
         const fetchUser = async () => {
             try {
                 const userInfo = await usersService.getUserById(user._id);
-                setPlan(userInfo.myPlan);
+                dispatch({ type: ACTION.SET_PLAN, payload: userInfo.myPlan });
             } catch (err) {
                 console.log(err)
             }
@@ -24,7 +24,7 @@ function MyPlan() {
         fetchUser();
 
     }, [user])
-
+    console.log(plan)
 
     return <div className="container text-center p-4">
         <h3 className="p-2">My Program Plan</h3>
@@ -32,7 +32,7 @@ function MyPlan() {
         <div className="d-flex flex-wrap justify-content-center gap-4">
             {
                 plan.map((dayPlan, index) => {
-                    return <PlanCard key={index} dayPlan={dayPlan} trainee={false} />
+                    return <PlanCard key={index} info={dayPlan} trainee={false} />
                 })
             }
         </div>

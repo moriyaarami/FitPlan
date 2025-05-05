@@ -81,6 +81,7 @@ function App() {
           <Route path='/more-actions' element={<MoreActions />} />
           <Route path='/my-trainees' element={<MyTrainess openModal={openModal} />} />
           <Route path='/more-info' element={<MoreInfo />} />
+          <Route path='/add-trainee' element={<AddTrainee />} />
         </Routes>
       </main>
       <Footer />

@@ -23,7 +23,7 @@ function Footer() {
                     </a>
                 </span>
                 <span className='p-2'>
-                    <a href="https://www.linkedin.com/in/moriya-arami-36138033b/" target='_blank' rel="noopener noreferrer" className='link-dark'>
+                    <a href="https://www.linkedin.com/in/moriya-arami/" target='_blank' rel="noopener noreferrer" className='link-dark'>
                         <i className="bi bi-linkedin"></i>
                     </a>
                 </span>
