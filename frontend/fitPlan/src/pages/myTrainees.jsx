@@ -14,8 +14,6 @@ function MyTrainess() {
         fetchTrainees();
     }, [])
 
-    console.log(trainees)
-
     const handleUpdate = async (traineeId, updatedTrainee) => {
         try {
 

@@ -8,7 +8,7 @@ import usersService from "../services/userService";
 import { useAuth } from "../context/auth.context";
 
 function PlanCard({ info, traineeId, trainee }) {
-    console.log(trainee)
+
     const day = info.day;
 
     const exercisesFromServer = useEx();

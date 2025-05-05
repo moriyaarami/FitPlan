@@ -13,11 +13,11 @@ function MoreAction() {
     const { user } = useAuth()
     const EXERCISES = useEx();
     const { plan, dispatch } = usePlan();
-    console.log(user)
+
 
     const location = useLocation();
     const { exerciseDetails, day, traineeId, trainee } = location.state;
-    console.log(trainee)
+
 
     const [message, setMessage] = useState('')
     const [deleteMessage, setDeleteMessage] = useState('')
@@ -36,7 +36,7 @@ function MoreAction() {
     }, [plan, day, location])
 
     if (specificDay?.length == 0) {
-        console.log("in")
+
         return;
     }
 
@@ -130,7 +130,7 @@ function MoreAction() {
             <h2 className="m-4">Manage Plan</h2>
             {deleteMessage && <div className="alert alert-secondary">{deleteMessage}</div>}
             <div className="d-flex flex-wrap justify-content-center gap-4">
-                {console.log(Object.keys(plan).length)}
+
                 {Object.keys(plan).length > 0 && (
                     specificDay && specificDay["exercises"].map((ex, index) => {
                         return <ExerciseCard key={index} exInfo={ex} deleteFromPlan={handleDeleteFromPlam}></ExerciseCard>

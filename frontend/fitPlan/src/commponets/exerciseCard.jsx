@@ -1,7 +1,7 @@
 import { useEx } from "../hooks/useEx";
 
 function ExerciseCard({ exInfo, deleteFromPlan }) {
-    console.log(exInfo)
+
 
     const Exercises = useEx();
     const correctEx = Exercises.find((ex) => {

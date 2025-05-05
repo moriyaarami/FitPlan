@@ -9,7 +9,7 @@ import cardService from "../services/exercise";
 function Home() {
 
     const exercises = useEx();
-    console.log(exercises)
+
 
     const [serverError, setServerError] = useState('');
     const [inputValue, setInputValue] = useState(localStorage.getItem("selectedCategory") || "");
