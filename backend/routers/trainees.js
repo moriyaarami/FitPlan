@@ -38,7 +38,7 @@ router.post('/add', authMW, async (req, res) => {
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error:' + err.message);
-        return;
+
     }
 
 });
@@ -57,7 +57,7 @@ router.get('/myTrainees', authMW, async (req, res) => {
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error:' + err.message);
-        return;
+
     }
 });
 
@@ -89,7 +89,7 @@ router.get('/:id', authMW, async (req, res) => {
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error:' + err.message);
-        return;
+
     }
 })
 
@@ -126,7 +126,7 @@ router.put('/:id', authMW, async (req, res) => {
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error:' + err.message);
-        return;
+
     }
 
 })
@@ -162,7 +162,7 @@ router.delete('/:id', authMW, async (req, res) => {
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error:' + err.message);
-        return;
+
     }
 });
 
@@ -200,7 +200,7 @@ router.patch('/addToTraineePlan/:TraineeId', authMW, getMyTraineePlanMw, async (
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error:' + err.message);
-        return;
+
     }
 });
 
@@ -228,7 +228,7 @@ router.patch('/removeFromTraineePlan/:TraineeId', authMW, getMyTraineePlanMw, as
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error:' + err.message);
-        return;
+
     }
 });
 

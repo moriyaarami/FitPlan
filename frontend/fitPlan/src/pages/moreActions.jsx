@@ -7,6 +7,7 @@ import { useAuth } from "../context/auth.context";
 import BizUsersService from "../services/bizUserService";
 import { ACTION, usePlan } from "../context/plan.context";
 import usersService from "../services/userService";
+import { boolean } from "joi";
 
 
 function MoreAction() {
@@ -16,7 +17,7 @@ function MoreAction() {
 
 
     const location = useLocation();
-    const { exerciseDetails, day, traineeId, trainee } = location.state;
+    const { day, traineeId, trainee } = location.state;
 
 
     const [message, setMessage] = useState('')
@@ -27,18 +28,27 @@ function MoreAction() {
     const [specificDay, setSpecificDay] = useState(null);
 
 
+    const fetchTrainee = async () => {
+        try {
+            const response = await TraineeServices.getTraineeById(traineeId)
+
+            dispatch({ type: ACTION.SET_PLAN, payload: response.data[0].myPlan })
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    useEffect(() => { fetchTrainee() }, [])
+
 
     useEffect(() => {
-
         const foundDay = plan.find((d) => { return d.day === day })
         setSpecificDay(foundDay)
-
     }, [plan, day, location])
 
-    if (specificDay?.length == 0) {
-
-        return;
-    }
+    /*  if (specificDay?.length == 0) {
+         return;
+     } */
 
     const handleAddToPlan = async () => {
         if (trainee) {
@@ -89,14 +99,14 @@ function MoreAction() {
 
             const data = {
                 dayName: day,
-                exerciseId: info.exerciseId,
+                exerciseId: info._id,
             };
 
 
             try {
                 const response = await TraineeServices.removeFromTraineePlan(traineeId, data);
 
-                setDeleteMessage('The exercises deleted successfully')
+                setDeleteMessage(`The exercise ${info.name} deleted successfully`)
                 setTimeout(() => { setDeleteMessage('') }, 3000)
 
                 dispatch({ type: ACTION.SET_PLAN, payload: response.data })
@@ -108,12 +118,11 @@ function MoreAction() {
         if (!trainee) {
             const data = {
                 dayName: day,
-                exerciseId: info.exerciseId,
+                exerciseId: info._id,
             };
-
             try {
                 const response = await usersService.removeExercise(user._id, data)
-                setDeleteMessage('The exercises deleted successfully')
+                setDeleteMessage(`The exercise ${info.name} deleted successfully`)
                 setTimeout(() => { setDeleteMessage('') }, 3000)
 
                 dispatch({ type: ACTION.SET_PLAN, payload: response.data })
@@ -124,17 +133,18 @@ function MoreAction() {
     }
 
 
-
     return <>
         <div className="text-center container p-4">
             <h2 className="m-4">Manage Plan</h2>
             {deleteMessage && <div className="alert alert-secondary">{deleteMessage}</div>}
             <div className="d-flex flex-wrap justify-content-center gap-4">
 
-                {Object.keys(plan).length > 0 && (
-                    specificDay && specificDay["exercises"].map((ex, index) => {
-                        return <ExerciseCard key={index} exInfo={ex} deleteFromPlan={handleDeleteFromPlam}></ExerciseCard>
-                    }))
+
+                {
+                    specificDay == undefined || specificDay["exercises"].length == 0 ? (<h6>Not found exercises yet.</h6>) :
+                        specificDay && specificDay["exercises"].map((ex, index) => {
+                            return <ExerciseCard key={index} exInfo={ex} deleteFromPlan={handleDeleteFromPlam}></ExerciseCard>
+                        })
                 }
 
             </div>

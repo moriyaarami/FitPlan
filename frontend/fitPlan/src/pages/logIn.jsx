@@ -5,8 +5,11 @@ import Joi from "joi"
 import '../styles/form.css';
 import { useState } from "react";
 import { useAuth } from "../context/auth.context";
+import { useNavigate } from "react-router-dom";
 
 function LogIn({ closeModal }) {
+
+    const navigate = useNavigate()
     const { login, loginBiz } = useAuth();
     const [serverError, setServerError] = useState('');
     const [biz, setBiz] = useState(false);
@@ -53,6 +56,7 @@ function LogIn({ closeModal }) {
                 try {
 
                     await loginBiz(payload);
+                    navigate('/my-trainees')
                     closeModal();
                 } catch (err) {
                     if (err.response?.status >= 400) {
@@ -66,6 +70,7 @@ function LogIn({ closeModal }) {
                 delete payload.isBusiness
                 try {
                     await login(payload);
+                    navigate('/my-plan')
                     closeModal();
                 } catch (err) {
                     if (err.response?.status >= 400) {

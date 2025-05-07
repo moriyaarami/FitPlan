@@ -21,7 +21,7 @@ function ExerciseCard({ exInfo, deleteFromPlan }) {
                 <p className="card-text">Reps: {exInfo.reps}</p>
             </div>
         </div>
-        <button className="btn btn-danger m-4 " onClick={() => deleteFromPlan(exInfo)}>Delete</button>
+        <button className="btn btn-danger m-4 " onClick={() => deleteFromPlan(correctEx)}>Delete</button>
     </div >
 }
 

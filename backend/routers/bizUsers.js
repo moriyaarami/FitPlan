@@ -35,7 +35,8 @@ router.post('/signup', async (req, res) => {
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error:' + err.message);
-        return;
+
+
     }
 })
 
@@ -67,7 +68,7 @@ router.post('/login', async (req, res) => {
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error:' + err.message);
-        return;
+
     }
 })
 
@@ -107,7 +108,7 @@ router.get('/:id', authMW, async (req, res) => {
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error:' + err.message);
-        return;
+
     }
 })
 
@@ -163,7 +164,7 @@ router.delete('/:id', authMW, async (req, res) => {
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error:' + err.message);
-        return;
+
     }
 })
 
@@ -194,7 +195,7 @@ router.get('/:id/getmyTrainee/:trainee_id', authMW, async (req, res) => {
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error:' + err.message);
-        return;
+
     }
 })
 

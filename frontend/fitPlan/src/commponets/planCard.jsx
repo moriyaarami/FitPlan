@@ -78,7 +78,8 @@ function PlanCard({ info, traineeId, trainee }) {
                     }
                 </div>
             </div>
-            <NavLink to="/more-actions" state={{ exerciseDetails, day, traineeId, trainee }} className="btn btn-dark mt-3" >Manage Exercises</NavLink>
+
+            <NavLink to="/more-actions" state={{ day, traineeId, trainee }} className="btn btn-dark mt-3" >Manage Exercises</NavLink>
 
 
 

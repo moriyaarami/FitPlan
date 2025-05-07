@@ -24,7 +24,7 @@ router.post('/create', authMW, async (req, res) => {
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error:' + err.message);
-        return;
+
     }
 })
 
@@ -51,7 +51,7 @@ router.put('/update/:id', authMW, async (req, res) => {
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error:' + err.message);
-        return;
+
     }
 });
 
@@ -70,7 +70,7 @@ router.delete('/delete/:id', authMW, async (req, res) => {
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error:' + err.message);
-        return;
+
     }
 })
 
@@ -102,7 +102,7 @@ router.get('/name', async (req, res) => {
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error:' + err.message);
-        return;
+
     }
 })
 router.get('/category', async (req, res) => {
@@ -118,7 +118,7 @@ router.get('/category', async (req, res) => {
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error:' + err.message);
-        return;
+
     }
 })
 router.get('/difficulty', async (req, res) => {
@@ -134,7 +134,7 @@ router.get('/difficulty', async (req, res) => {
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error:' + err.message);
-        return;
+
     }
 })
 
