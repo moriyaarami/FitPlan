@@ -20,8 +20,10 @@ import MoreActions from './pages/moreActions'
 import MyTrainess from './pages/myTrainees'
 import AddTrainee from './pages/addTrainee'
 import MoreInfo from './pages/TraineeMoreInfo'
+import { API_URL } from './config'
 
 function App() {
+  console.log(API_URL)
   const { user } = useAuth();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
