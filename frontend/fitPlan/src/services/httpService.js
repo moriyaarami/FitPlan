@@ -2,7 +2,7 @@ import axios from 'axios'
 import { API_URL } from '../config';
 
 
-axios.defaults.baseURL = API_URL;
+axios.defaults.baseURL = `${API_URL}/api`;
 
 export function setCommonHeader(header, headerValue) {
     axios.defaults.headers.common[header] = headerValue;
