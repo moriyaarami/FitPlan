@@ -10,7 +10,6 @@ function Home() {
 
     const exercises = useEx();
 
-
     const [serverError, setServerError] = useState('');
     const [inputValue, setInputValue] = useState(localStorage.getItem("selectedCategory") || "");
     const [showExercise, setShowExercise] = useState([]);
@@ -18,15 +17,14 @@ function Home() {
 
     useEffect(() => {
 
-        if (inputValue) {
-            handleCategorySearch(inputValue);
-        } else {
+        if (inputValue === "all") {
             setShowExercise(exercises)
+
+        } else {
+            handleCategorySearch(inputValue);
         }
 
-
-
-    }, [exercises])
+    }, [inputValue, exercises])
 
     const handleCategorySearch = async (category) => {
 

@@ -13,7 +13,7 @@ export function deleteEx(exId) {
 }
 
 export function getAllEx() {
-    return httpService.get('/exercise').then(console.log());
+    return httpService.get('/exercise');
 }
 
 export function getExByName(exName) {
