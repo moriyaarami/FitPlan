@@ -23,7 +23,7 @@ import MoreInfo from './pages/TraineeMoreInfo'
 import { API_URL } from './config'
 
 function App() {
-  console.log(API_URL)
+
   const { user } = useAuth();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
